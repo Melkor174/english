@@ -1,0 +1,169 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Контейнер для режимов */
+#modes {
+    margin-top: 20px;
+}
+
+/* Режим карточек */
+#cards-mode {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    height: 70vh;
+/*    display: flex;*/
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    border-radius: 10px;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #2a2a2a;
+    font-size: 24px;
+    text-align: center;
+}
+
+.card-back {
+    background-color: #3a3a3a;
+    transform: rotateY(180deg);
+}
+
+/* Кнопки навигации */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#prev-btn {
+    left: 10px;
+}
+
+#next-btn {
+    right: 10px;
+}
+
+/* Режим правописания */
+#spelling-mode {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#spelling-input {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#spelling-result {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+#spelling-result.correct {
+    color: green;
+}
+
+#spelling-result.incorrect {
+    color: red;
+}
+
+/* Режим заучивания */
+#learning-mode {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.option-btn {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Адаптив для мобильных устройств */
+@media (max-width: 600px) {
+    .card-front, .card-back {
+        font-size: 20px;
+    }
+
+    .nav-btn {
+        font-size: 20px;
+        padding: 8px;
+    }
+}

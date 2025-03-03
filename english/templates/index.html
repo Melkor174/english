@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Words</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1 id="title">Выберите тему</h1>
+    <div id="themes">
+        {% for theme in themes %}
+            <button onclick="loadTheme('{{ theme }}')">{{ theme }}</button>
+        {% endfor %}
+    </div>
+
+    <!-- Контейнер для режимов -->
+    <div id="modes" class="hidden">
+        <button onclick="showCards()">Карточки</button>
+        <button onclick="showSpelling()">Правописание</button>
+        <button onclick="showLearning()">Заучивание</button>
+    </div>
+
+    <!-- Режим карточек -->
+    <div id="cards-mode" class="hidden">
+        <div id="card" class="card">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back"></div>
+            </div>
+        </div>
+        <button id="prev-btn" class="nav-btn">←</button>
+        <button id="next-btn" class="nav-btn">→</button>
+    </div>
+
+    <!-- Режим правописания -->
+    <div id="spelling-mode" class="hidden">
+        <h2>Правописание</h2>
+        <p>Переведите слово: <span id="spelling-word"></span></p>
+        <input type="text" id="spelling-input">
+        <button onclick="checkSpelling()">Проверить</button>
+        <p id="spelling-result"></p>
+    </div>
+
+    <!-- Режим заучивания -->
+    <div id="learning-mode" class="hidden">
+        <h2>Заучивание</h2>
+        <p>Выберите правильный перевод: <span id="learning-word"></span></p>
+        <div id="options">
+            <button class="option-btn"></button>
+            <button class="option-btn"></button>
+            <button class="option-btn"></button>
+            <button class="option-btn"></button>
+        </div>
+        <p id="learning-result"></p>
+    </div>
+
+    <!-- Кнопки навигации -->
+    <div id="navigation" class="hidden">
+        <button onclick="backToThemes()">Выход к темам</button>
+        <button onclick="changeMode()">Сменить режим</button>
+    </div>
+
+    <!-- Подключаем JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
