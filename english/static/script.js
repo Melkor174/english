@@ -4,15 +4,42 @@ let currentWordIndex = 0;
 let spellingWords = [];
 let learningWords = [];
 
-// Загрузить тему
+//Загрузить тему
 async function loadTheme(theme) {
     currentTheme = theme;
     const response = await fetch(`/words/${theme}`);
     words = await response.json();
+    updateDictionaryList();
     document.getElementById('themes').classList.add('hidden');
     document.getElementById('modes').classList.remove('hidden');
     document.getElementById('navigation').classList.remove('hidden');
     document.getElementById('title').textContent = 'Выберите режим';
+}
+
+
+
+
+// Функция для показа словаря
+function showDictionary() {
+    document.getElementById('modes').classList.add('hidden');
+    document.getElementById('dictionary-mode').classList.remove('hidden');
+    updateDictionaryList();
+}
+
+// Обновление списка слов
+function updateDictionaryList() {
+    const list = document.getElementById('dictionary-list');
+    list.innerHTML = '';
+    
+    for(const [word, translation] of Object.entries(words)) {
+        const div = document.createElement('div');
+        div.className = 'word-pair';
+        div.innerHTML = `
+            <span>${word}</span>
+            <span>${translation}</span>
+        `;
+        list.appendChild(div);
+    }
 }
 
 // Показать режим карточек
@@ -161,6 +188,7 @@ function shuffleArray(array) {
 
 // Вернуться к темам
 function backToThemes() {
+    document.getElementById('dictionary-mode').classList.add('hidden');
     document.getElementById('modes').classList.add('hidden');
     document.getElementById('cards-mode').classList.add('hidden');
     document.getElementById('spelling-mode').classList.add('hidden');
@@ -176,4 +204,52 @@ function changeMode() {
     document.getElementById('spelling-mode').classList.add('hidden');
     document.getElementById('learning-mode').classList.add('hidden');
     document.getElementById('modes').classList.remove('hidden');
+}
+
+// Общая функция для скрытия всех режимов
+function hideAllModes() {
+    const modes = [
+        'cards-mode', 
+        'spelling-mode', 
+        'learning-mode', 
+        'dictionary-mode'
+    ];
+    
+    modes.forEach(mode => {
+        document.getElementById(mode).classList.add('hidden');
+    });
+}
+
+// Переписываем функции показа режимов
+function showCards() {
+    hideAllModes();
+    document.getElementById('cards-mode').classList.remove('hidden');
+    currentWordIndex = 0;
+    showCard();
+}
+
+function showSpelling() {
+    hideAllModes();
+    document.getElementById('spelling-mode').classList.remove('hidden');
+    // ... остальной код
+}
+
+function showLearning() {
+    hideAllModes();
+    document.getElementById('learning-mode').classList.remove('hidden');
+    // ... остальной код
+}
+
+function showDictionary() {
+    hideAllModes();
+    document.getElementById('dictionary-mode').classList.remove('hidden');
+    updateDictionaryList();
+}
+
+// Обновляем функцию возврата к темам
+function backToThemes() {
+    hideAllModes();
+    document.getElementById('themes').classList.remove('hidden');
+    document.getElementById('navigation').classList.add('hidden');
+    document.getElementById('title').textContent = 'Выберите тему';
 }
